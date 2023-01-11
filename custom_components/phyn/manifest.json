@@ -1,0 +1,11 @@
+{
+  "domain": "phyn",
+  "name": "Phyn",
+  "config_flow": true,
+  "documentation": "https://www.home-assistant.io/integrations/phyn",
+  "requirements": ["aiophyn==2023.01.0"],
+  "codeowners": ["@mizterb"],
+  "iot_class": "cloud_polling",
+  "loggers": ["aiophyn"],
+  "version": "2023.01.0"
+}
