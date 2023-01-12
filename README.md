@@ -26,67 +26,10 @@ This custom component can be integrated into [HACS](https://github.com/hacs/inte
 
 # Configuration
 
-Add the following to your `configuration.yaml`:
-
-```yaml
-climate:
-  - platform: infinitude
-    host: <infinitude_hostname_or_ip>
-    port: <optional, defaults to 3000>
-    zone_names:
-      - Custom Zone Name 1
-      -
-      - Custom Zone Name 3
-      - ...
-```
-
-Custom zone names are optional, and are applied in ascending order (zones 1-8). If a blank name is provided (like in the second entry above), the zone name is retrieved from the thermostat itself.
+Configuration is done via the UI. Add the "Phyn" integration via the Integration settings, then provide the Phyn username and password in the configuration dialog.
 
 ## Changelog
 
-_0.7.2_
-
-- Updated installation instructions for HACS
-- Include version number in manifest
-
-_0.7.1_
-
-- Extend ClimateEntity, rather than ClimateDevice
-
-_0.7_
-
-- Submit changes via POST to be compatible with latest Infinitude API ([see commit](https://github.com/MizterB/infinitude/commit/a0c3b7a58c1c3535a0811001bcfed2c43c672906))
-- Handle timezone offsets being inconsistently passed in localTime.
-- Make custom zone names optional, and with ability to only override specific zones
-
-_0.6_
-
-- Rewritten for compatibility with the new climate spec in HA .96
-- New presets available to quickly change activities and manage hold settings:
-  - 'Scheduled' preset restores the currently scheduled activity
-  - 'Activity' presets override the currently scheduled activity until the next schedule change
-  - 'Override' preset holds any setting changes until the next schedule change (automatically enabled on temperature & fan changes)
-  - 'Hold' preset holds any setting changes indefinitely
-- Service set_hold_mode is mostly replaced by presets, but can still be used for setting specific 'hold until' times
-
-_0.5_
-
-- New service 'infinitude.set_hold_mode' enables changing activities and corresponding hold settings.
-
-_0.4_
-
-- Added manifest.json
-- Fixed temperature setting reversal while on Auto mode(thanks @ccalica!)
-
-_0.3_
-
-- Safely handle updates of values that might not exist on all thermostats
-- Provide ability to override zone names
-
-_0.2_
-
-- Updated constants to be compatible with HA .89
-
-_0.1_
+_2023.01.00_
 
 - Initial release
