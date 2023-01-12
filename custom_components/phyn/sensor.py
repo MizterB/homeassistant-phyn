@@ -22,7 +22,7 @@ from .entity import PhynEntity
 
 WATER_ICON = "mdi:water"
 GAUGE_ICON = "mdi:gauge"
-NAME_DAILY_USAGE = "Today's water usage"
+NAME_DAILY_USAGE = "Daily water usage"
 NAME_FLOW_RATE = "Average water flow rate"
 NAME_WATER_TEMPERATURE = "Average water temperature"
 NAME_WATER_PRESSURE = "Average water pressure"
