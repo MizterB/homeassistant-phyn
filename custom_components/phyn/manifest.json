@@ -3,7 +3,9 @@
   "name": "Phyn",
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/phyn",
-  "requirements": ["aiophyn==2023.01.0"],
+  "requirements": [
+    "git+https://github.com/MizterB/aiophyn.git@main#aiophyn==2023.1.0"
+  ],
   "codeowners": ["@mizterb"],
   "iot_class": "cloud_polling",
   "loggers": ["aiophyn"],
