@@ -1,0 +1,21 @@
+{
+    "config": {
+        "abort": {
+            "already_configured": "Laite on jo määritetty"
+        },
+        "error": {
+            "cannot_connect": "Yhdistäminen epäonnistui",
+            "invalid_auth": "Väärä käyttäjätunnus tai salasana",
+            "unknown": "Tuntematon virhe"
+        },
+        "step": {
+            "user": {
+                "data": {
+                    "host": "Laite",
+                    "password": "Salasana",
+                    "username": "Käyttäjätunnus"
+                }
+            }
+        }
+    }
+}
