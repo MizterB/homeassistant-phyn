@@ -7,6 +7,7 @@ This integration currently provides the following capabilities:
 - Daily water usage (compatible with Energy dashboard)
 - Average water temperature, pressure, and flow (realtime not available)
 - Shutoff valve control
+- Away mode control
 
 # Installation via HACS
 
@@ -33,3 +34,7 @@ Configuration is done via the UI. Add the "Phyn" integration via the Integration
 _2023.01.00_
 
 - Initial release
+
+_2023.08.00_
+
+- Added away mode control

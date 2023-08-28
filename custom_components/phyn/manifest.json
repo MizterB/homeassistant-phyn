@@ -4,10 +4,10 @@
   "config_flow": true,
   "documentation": "https://www.home-assistant.io/integrations/phyn",
   "requirements": [
-    "git+https://github.com/MizterB/aiophyn.git@main#aiophyn==2023.1.0"
+    "git+https://github.com/rsocko/aiophyn.git@get_away_mode#aiophyn==2023.1.0"
   ],
   "codeowners": ["@mizterb"],
   "iot_class": "cloud_polling",
   "loggers": ["aiophyn"],
-  "version": "2023.01.0"
+  "version": "2023.08.0"
 }

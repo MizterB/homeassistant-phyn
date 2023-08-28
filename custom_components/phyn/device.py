@@ -28,6 +28,7 @@ class PhynDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         self._phyn_device_id: str = device_id
         self._manufacturer: str = "Phyn"
         self._device_state: dict[str, Any] = {}
+        self._away_mode: dict[str, Any] = {} #TODO: determine if this is the right datatype
         self._water_usage: dict[str, Any] = {}
         super().__init__(
             hass,
@@ -42,6 +43,7 @@ class PhynDeviceDataUpdateCoordinator(DataUpdateCoordinator):
             async with timeout(20):
                 await self._update_device()
                 await self._update_consumption_data()
+                await self._update_away_mode()
         except (RequestError) as error:
             raise UpdateFailed(error) from error
 
@@ -114,6 +116,11 @@ class PhynDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     def valve_state(self) -> str:
         """Return the valve state for the device."""
         return self._device_state["sov_status"]["v"]
+    
+    @property
+    def away_mode(self) -> bool:
+        """Return True if device is in away mode."""
+        return self._away_mode["value"] == "true"
 
     async def _update_device(self, *_) -> None:
         """Update the device state from the API."""
@@ -130,3 +137,10 @@ class PhynDeviceDataUpdateCoordinator(DataUpdateCoordinator):
             self._phyn_device_id, duration
         )
         LOGGER.debug("Updated Phyn consumption data: %s", self._water_usage)
+
+    async def _update_away_mode(self, *_) -> None:
+        """Update the away mode data from the API"""
+        self._away_mode = await self.api_client.device.get_away_mode(
+            self._phyn_device_id
+        )
+        LOGGER.debug("Phyn away mode: %s", self._away_mode)
