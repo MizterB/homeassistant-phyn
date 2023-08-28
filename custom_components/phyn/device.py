@@ -28,7 +28,7 @@ class PhynDeviceDataUpdateCoordinator(DataUpdateCoordinator):
         self._phyn_device_id: str = device_id
         self._manufacturer: str = "Phyn"
         self._device_state: dict[str, Any] = {}
-        self._away_mode: dict[str, Any] = {} #TODO: determine if this is the right datatype
+        self._away_mode: dict[str, Any] = {}
         self._water_usage: dict[str, Any] = {}
         super().__init__(
             hass,
