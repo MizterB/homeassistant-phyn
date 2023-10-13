@@ -27,7 +27,8 @@ async def async_setup_entry(
     ]["devices"]
     entities = []
     for device in devices:
-        entities.append(PhynSwitch(device))
+        if device.model == 'PP1' or device.model == 'PP2':
+            entities.append(PhynSwitch(device))
     async_add_entities(entities)
 
 
