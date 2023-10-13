@@ -39,14 +39,15 @@ async def async_setup_entry(
     ]["devices"]
     entities = []
     for device in devices:
-        entities.extend(
-            [
-                PhynDailyUsageSensor(device),
-                PhynCurrentFlowRateSensor(device),
-                PhynTemperatureSensor(NAME_WATER_TEMPERATURE, device),
-                PhynPressureSensor(device),
-            ]
-        )
+        if device.model == 'PP1' or device.model == 'PP2':
+            entities.extend(
+                [
+                    PhynDailyUsageSensor(device),
+                    PhynCurrentFlowRateSensor(device),
+                    PhynTemperatureSensor(NAME_WATER_TEMPERATURE, device),
+                    PhynPressureSensor(device),
+                ]
+            )
     async_add_entities(entities)
 
 
