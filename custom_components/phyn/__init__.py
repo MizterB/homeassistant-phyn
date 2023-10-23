@@ -17,6 +17,7 @@ from .device import PhynDeviceDataUpdateCoordinator
 _LOGGER = logging.getLogger(__name__)
 
 PLATFORMS = [Platform.SENSOR, Platform.SWITCH]
+PLATFORMS_PC1 = [Platform.SENSOR]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
@@ -44,7 +45,10 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     tasks = [device.async_refresh() for device in devices]
     await asyncio.gather(*tasks)
 
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    if any("PP1" in device.get("product_code", "") for home in homes for device in home["devices"]):
+        await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
+    else:
+        await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS_PC1)
 
     return True
 
