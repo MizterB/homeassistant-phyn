@@ -1,3 +1,7 @@
+# NO LONGER MAINTAINED
+
+*Please check out the excellent [@jordanruthe](https://github.com/jordanruthe) fork of this project, available at https://github.com/jordanruthe/homeassistant-phyn, which is actively maintained. Thanks for stopping by!*
+
 # homeassistant-phyn
 
 Home Assistant custom component for interfacing with [Phyn](https://www.phyn.com) Smart Water Assistant.
