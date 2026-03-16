@@ -94,6 +94,26 @@ class PhynDeviceDataUpdateCoordinator(DataUpdateCoordinator):
     def temperature(self) -> float:
         """Return the current temperature in degrees F."""
         return self._device_state["temperature"]["mean"]
+        
+    @property
+    def current_psi1(self) -> float:
+        """Return the current pressure in psi."""
+        return self._device_state["pressure1"]["mean"]
+
+    @property
+    def temperature1(self) -> float:
+        """Return the current temperature in degrees F."""
+        return self._device_state["temperature1"]["mean"]
+        
+    @property
+    def current_psi2(self) -> float:
+        """Return the current pressure in psi."""
+        return self._device_state["pressure2"]["mean"]
+
+    @property
+    def temperature2(self) -> float:
+        """Return the current temperature in degrees F."""
+        return self._device_state["temperature2"]["mean"]
 
     @property
     def consumption_today(self) -> float:

@@ -25,7 +25,11 @@ GAUGE_ICON = "mdi:gauge"
 NAME_DAILY_USAGE = "Daily water usage"
 NAME_FLOW_RATE = "Average water flow rate"
 NAME_WATER_TEMPERATURE = "Average water temperature"
+NAME_HOT_WATER_TEMPERATURE = "Average hot water temperature"
+NAME_COLD_WATER_TEMPERATURE = "Average cold water temperature"
 NAME_WATER_PRESSURE = "Average water pressure"
+NAME_HOT_WATER_PRESSURE = "Average hot water pressure"
+NAME_COLD_WATER_PRESSURE = "Average cold water pressure"
 
 
 async def async_setup_entry(
@@ -39,14 +43,21 @@ async def async_setup_entry(
     ]["devices"]
     entities = []
     for device in devices:
-        entities.extend(
-            [
+        if device.model == 'PC1':
+            entities.extend([
+                PhynDailyUsageSensor(device),
+                PhynTemperature1Sensor(NAME_HOT_WATER_TEMPERATURE, device),
+                PhynPressure1Sensor(NAME_HOT_WATER_PRESSURE, device),
+                PhynTemperature2Sensor(NAME_COLD_WATER_TEMPERATURE, device),
+                PhynPressure2Sensor(NAME_COLD_WATER_PRESSURE, device),
+            ])
+        else:
+            entities.extend([
                 PhynDailyUsageSensor(device),
                 PhynCurrentFlowRateSensor(device),
                 PhynTemperatureSensor(NAME_WATER_TEMPERATURE, device),
                 PhynPressureSensor(device),
-            ]
-        )
+            ])
     async_add_entities(entities)
 
 
@@ -129,3 +140,81 @@ class PhynPressureSensor(PhynEntity, SensorEntity):
         if self._device.current_psi is None:
             return None
         return round(self._device.current_psi, 1)
+        
+class PhynTemperature1Sensor(PhynEntity, SensorEntity):
+    """Monitors the temperature1."""
+
+    _attr_device_class = SensorDeviceClass.TEMPERATURE
+    _attr_native_unit_of_measurement = UnitOfTemperature.FAHRENHEIT
+    _attr_state_class: SensorStateClass = SensorStateClass.MEASUREMENT
+
+    def __init__(self, name, device):
+        """Initialize the temperature 1 sensor."""
+        super().__init__("temperature1", name, device)
+        self._state: float = None
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the current temperature 1."""
+        if self._device.temperature1 is None:
+            return None
+        return round(self._device.temperature1, 1)
+
+
+class PhynPressure1Sensor(PhynEntity, SensorEntity):
+    """Monitors the water pressure1."""
+
+    _attr_device_class = SensorDeviceClass.PRESSURE
+    _attr_native_unit_of_measurement = UnitOfPressure.PSI
+    _attr_state_class: SensorStateClass = SensorStateClass.MEASUREMENT
+
+    def __init__(self, name, device):
+        """Initialize the pressure1 sensor."""
+        super().__init__("water_pressure1", name, device)
+        self._state: float = None
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the current water pressure1."""
+        if self._device.current_psi1 is None:
+            return None
+        return round(self._device.current_psi1, 1)
+        
+class PhynTemperature2Sensor(PhynEntity, SensorEntity):
+    """Monitors the temperature2."""
+
+    _attr_device_class = SensorDeviceClass.TEMPERATURE
+    _attr_native_unit_of_measurement = UnitOfTemperature.FAHRENHEIT
+    _attr_state_class: SensorStateClass = SensorStateClass.MEASUREMENT
+
+    def __init__(self, name, device):
+        """Initialize the temperature2 sensor."""
+        super().__init__("temperature2", name, device)
+        self._state: float = None
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the current temperature2."""
+        if self._device.temperature2 is None:
+            return None
+        return round(self._device.temperature2, 1)
+
+
+class PhynPressure2Sensor(PhynEntity, SensorEntity):
+    """Monitors the water pressure2."""
+
+    _attr_device_class = SensorDeviceClass.PRESSURE
+    _attr_native_unit_of_measurement = UnitOfPressure.PSI
+    _attr_state_class: SensorStateClass = SensorStateClass.MEASUREMENT
+
+    def __init__(self, name, device):
+        """Initialize the pressure2 sensor."""
+        super().__init__("water_pressure2", name, device)
+        self._state: float = None
+
+    @property
+    def native_value(self) -> float | None:
+        """Return the current water pressure2."""
+        if self._device.current_psi2 is None:
+            return None
+        return round(self._device.current_psi2, 1)
